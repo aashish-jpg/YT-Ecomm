@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - KinBech</title>
+    <link rel="stylesheet" href="Style.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+</head>
+
+
+<body>
+
+    <div class="header">
+
+        <div class="navbar">
+            <div class="logo">
+                <a href="Home.html"><img src="Images/logo.jpg" alt=""></a>
+            </div>
+            <!-- <div class="search">
+                    <input type="text" name="search" id="search" placeholder="Search Here">
+                    <button>Search</button>
+                    <button id="btn2" title="Sell an item">+</button>
+                </div> -->
+            <nav>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Products.html">Products</a></li>
+                    <li><a href="" class="a">Account</a></li>
+                </ul>
+            </nav>
+            <a href="Add.html"><img src="Images/plus.png" alt="" class="plus" title="Sell an item"></a>
+        </div>
+    </div>
+
+    <!-- --- Account Page --- -->
+
+    <div class="acc">
+        <div class="header">
+            <div class="row">
+                <div class="col">
+                    <h1 class="h1">KinBech</h1>
+                    <p class="p">The c2c e-commerce platform that you can trust.</p>
+                </div>
+                <div class="col">
+                    <div class="section">
+                        <div class="secbtn">
+                            <span onclick="login()">Login</span>
+                            <span onclick="signup()">Sign Up</span>
+                            <hr id="active">
+                        </div>
+                        <form action="http://localhost:3000/login" method="post" id="loginform">
+                            <input requie="" type="text" name="" id="" placeholder="Email">
+                            <input require="" type="password" name="" id="" placeholder="Password">
+                            <!-- <a href="Home.html"> -->
+                            <button require="" type="submit" class="btn">Login</button>
+                            <!-- </a> -->
+                        </form>
+                        <form action="" id="suform">
+                            <input type="text" name="" id="" placeholder="Username">
+                            <input type="text" name="" id="" placeholder="Email">
+                            <input type="password" name="" id="" placeholder="Password">
+                            <button type="submit" class="btn">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- Footer --- -->
+
+    <div class="footer">
+        <div class="header">
+            <div class="row">
+                <div class="footer-col">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>Twitter</li>
+                        <li>Youtube</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2022 - KinBech C2C Ecommerce</p>
+        </div>
+    </div>
+
+    <!-- --- js for account --- -->
+
+    <script>
+        var loginform = document.getElementById("loginform");
+        var suform = document.getElementById("suform");
+        var active = document.getElementById("active");
+        function signup() {
+            suform.style.transform = "translateX(0px)";
+            loginform.style.transform = "translateX(0px)";
+            active.style.transform = "translateX(100px)";
+        }
+        function login() {
+            suform.style.transform = "translateX(300px)";
+            loginform.style.transform = "translateX(300px)";
+            active.style.transform = "translateX(0px)";
+        }
+    </script>
+    
+    <script>
+ jQuery ('#loginform').on('submit',function(e){
+    
+    e.preventDefault();
+      //get the action-url of the form
+      var actionurl = e.currentTarget.action;
+
+//do your own request an handle the results
+$.ajax({
+        url: actionurl,
+        type: 'post',
+        dataType: 'application/json',
+        data: $("#loginform").serialize(),
+        success: function(data) {
+            console.log(data)
+        }
+});
+ })
+    </script>
+</body>
+
+</html>
