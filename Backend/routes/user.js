@@ -1,45 +1,42 @@
-const router = require("express").Router()
-const generateToken=require("../middleware/Generatejson")
-const User=require("../models/User")
-const bcrypt=require("bcryptjs")
-router.post("/",  async (req, res) => {
-    const { email, password, name } = req.body;
-    
-    try {
-      const user = await User.findOne({ email });
-      console.log("yes")
-      if (user) {
-
-        return res.status(400).json({ error: "User already Exists" });
-      }
-      const salt = await bcrypt.genSalt(12);
-      const hashPassword = await bcrypt.hash(password, salt);
-      console.log(req.body)
-      const newUser = await User.create({
-        email,
-        name,
-        password: hashPassword,
-      });
-      if (newUser) {
-        await res.status(201).json({
-          _id: newUser._id,
-          name: newUser.name,
-          email: newUser.email,
-          token: generateToken(newUser._id),
-        });
-      } else {
-        res.status(400);
-        throw new Error("Invalid Data");
-      }
-    } catch (error) {
-      res.json(error);
+const router = require("express").Router();
+const generateToken = require("../middleware/Generatejson");
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+// Sign Up
+router.post("/", async (req, res) => {
+  const { email, password, name } = req.body;
+  console.log(req.body);
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ error: "User already Exists" });
     }
-  });
+    const salt = await bcrypt.genSalt(12);
+    const hashPassword = await bcrypt.hash(password, salt);
+    const newUser = await User.create({
+      email,
+      name,
+      password: hashPassword,
+    });
+    if (newUser) {
+      await res.status(201).json({
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+      });
+    } else {
+      res.status(400);
+      throw new Error("Invalid Data");
+    }
+  } catch (error) {
+    res.json(error);
+  }
+});
 
 // Login-------
 //@route /api/users/login
 
-router.post ("/login",async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -63,7 +60,5 @@ router.post ("/login",async (req, res) => {
   }
 });
 
-router.get("/vedo",(req,res)=> res.json("U are a vedo"));
-module.exports = router
-
-
+router.get("/vedo", (req, res) => res.json("U are a vedo"));
+module.exports = router;
